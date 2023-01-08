@@ -1,10 +1,10 @@
 <script setup>
 import {ref} from "vue"
-import { useUserSearchStore } from "@/stores/storeSearch.js"
-const userStore = useUserSearchStore();
+// import { useUserSearchStore } from "@/stores/storeSearch.js"
+// const userStore = useUserSearchStore();
 
 const props = defineProps({
-   user:{
+   character:{
       type: Object
    }
 })
@@ -13,10 +13,9 @@ const props = defineProps({
 
 <template>
  <div class="user-card">
-   <p class="user-card__data"><span class="bold">ID:</span>  {{ user.id }}</p>
-   <p class="user-card__data"><span class="bold" >Name:</span> {{ user.name }}</p>
-   <p class="user-card__data"><span class="bold" >UserName:</span> {{ user.username }}</p>
-   <!-- <p class="user-card__data"><span class="bold">City:</span> {{ user.address.city }}</p> -->
+   <p class="user-card__data"><span class="bold">ID:</span>  {{ character.id }}</p>
+   <p class="user-card__data"><span class="bold" >Name:</span> {{ character.name }}</p>
+   <p class="user-card__data"><span class="bold" >UserName:</span> {{ character.username }}</p>
  </div>
 </template>
 

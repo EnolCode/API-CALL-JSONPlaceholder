@@ -1,26 +1,24 @@
 <script setup>
+import { ref, reactive, onBeforeMount, onErrorCaptured, onMounted } from "vue";
 import UserCard from '../components/UserCard.vue';
-import { onBeforeMount } from "vue";
-import { useUsersStore } from "@/stores/store.js";
-const usersStore = useUsersStore();
+import ApiRepository from "../ApiRepositories/ApiRepository";
 
-onBeforeMount(() => {
-  getUsers();
-});
+let characters = ref([])
 
-const getUsers = async () => {
-  await usersStore.fetchUsers();
-};
-
-
+onBeforeMount(async () => {
+const repository = new ApiRepository("jsonholder");
+// const api = repository;
+characters.value = await repository.getAll();
+console.log(characters.value);
+})
 </script>
 
 <template>
     <section>
         <UserCard 
-            v-for="user in usersStore.users"
-            :key="user.id"
-            :user="user"
+            v-for="character in characters"
+            :key="character.id"
+            :character="character"
             />
     </section>
 </template>
