@@ -1,54 +1,116 @@
 <script setup>
-import PersonSearch from '../components/PersonSearch.vue';
 import { reactive, computed,ref,onBeforeMount } from 'vue';
 
 import { useUsersStore} from "@/stores/store.js";
 import UserCard from '../components/UserCard.vue';
 const usersStore = useUsersStore();
-// let newArr = reactive({})
-// const newArr2 = computed(()=> newArr = newArr2 )
 onBeforeMount(() => {
   getUsers();
 });
-let newArr = []
-const getUsers = async (data) => {
-  await usersStore.fetchUsers();
-  let userId = data
-  newArr = usersStore.users.find(el => el.id === userId)
-  return newArr
+const props = defineProps({
+   user:{
+      type: Object
+   }
+})
+
+  const getUsers = async (data) => {
+    await usersStore.fetchUsers();
 }
 
-setTimeout(() => {
-  console.log(newArr);
-}, 5000)
-  </script>
+let userIdInput = ref("")
+let newArr = reactive([])
+
+const getId = () =>{
+  let userId = userIdInput.value
+  userIdInput.value = ""
+  newArr = usersStore.users.find(el => el.id === userId)
+}
+
+</script>
 
 <template>
-    <div class="person">
-        <PersonSearch @send-id="getUsers" />
+    
+      <div class="search">
+      <div class="search__div">
+      <label class="search__title" for="search">Enter ID User (1-10)</label>  
+      <div class="search__div2">
+      <input class="search__input" type="number"  min="1" max="10" id="search" v-model="userIdInput">
+      <button @click="getId" class="search__button" type="submit"> Search</button>
     </div>
-    <main>
-      <h1>HOLA</h1>
-      <h3>{{ newArr }}</h3>
-        <UserCard 
-            v-for="user in newArr"
-            :key="user.id"
-            :user="user"
-            />
-    </main>
+      </div>
+      <div class="search__person" >
+        <p>Name: {{ newArr.name  }}</p>
+        <p>UserName: {{ newArr.username  }}</p>
+        <p>Email: {{ newArr.email  }}</p>
+        <p>Phone: {{ newArr.phone  }}</p>
+      </div>
+    </div>
+
+    
 
 </template>
 
-<style scoped>
 
-.person{
-  margin: 2em auto;
+<style scoped lang="scss">
+@use "@/assets/scss/colors" as c;
 
-}
-main{
-        margin-top: 2em;
-        display: grid;
-        grid-template-columns: repeat( auto-fit, minmax(20em, 1fr) );
-        justify-items: center
-}
+  
+    .search{
+        margin: 2em auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1em;
+        border-radius: 5px;
+        
+        &__div{
+        height: 5em;
+        width: 15em;
+        background:grey;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+    
+      }
+
+      &__div2{
+        display:flex;
+        gap: 2em;
+      }
+
+        &__title {
+            font-size: 1.3em;
+        }
+    
+        &__input{
+            outline: 1px solid black;
+            padding: 0 .5em;
+            justify-content: center;
+            align-items: center;
+        }
+
+        &__button{
+            background: map-get(c.$colors, "grey");
+            cursor: pointer;
+            padding:  .4em.8em;
+            border-radius: 5px;
+            color:white;
+            width: 70%;
+
+            &:hover{
+                opacity: .8;
+            }
+        }
+        &__person{
+          background: antiquewhite;
+          width: 18em;
+          height: 10em;
+          display: flex;
+          flex-direction: column;
+          gap:.5em;
+          padding: 1em;
+        }
+    }
+
 </style>

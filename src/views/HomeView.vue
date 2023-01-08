@@ -12,6 +12,7 @@ const getUsers = async () => {
   await usersStore.fetchUsers();
 };
 
+
 </script>
 
 <template>
