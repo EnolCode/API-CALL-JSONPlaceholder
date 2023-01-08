@@ -16,7 +16,7 @@ const props = defineProps({
    <p class="user-card__data"><span class="bold">ID:</span>  {{ user.id }}</p>
    <p class="user-card__data"><span class="bold" >Name:</span> {{ user.name }}</p>
    <p class="user-card__data"><span class="bold" >UserName:</span> {{ user.username }}</p>
-   <p class="user-card__data"><span class="bold">City:</span> {{ user.address.city }}</p>
+   <!-- <p class="user-card__data"><span class="bold">City:</span> {{ user.address.city }}</p> -->
  </div>
 </template>
 
