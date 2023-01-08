@@ -1,47 +1,33 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
+import UserCard from './components/UserCard.vue'
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-    </div>
-  </header>
-
-  <main>
-    <TheWelcome />
+<main>
+    <nav class="header__nav">
+      <router-link to="/" class="nav__link" href="">Home</router-link>
+      <router-link to="/search" class="nav__link" href="">Search</router-link>
+    </nav>
+    <RouterView />
   </main>
 </template>
 
 <style scoped>
-header {
-  line-height: 1.5;
+main{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
+.header__nav{
+  align-self: center;
+  display: flex;
+  width: 10em;
+  justify-content: space-around;
+  align-content: center;
+  margin-top: 2em;
 }
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
+.router-link-exact-active {
+  font-weight: bold;
 }
 </style>
