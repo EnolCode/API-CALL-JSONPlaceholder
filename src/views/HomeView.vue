@@ -9,7 +9,6 @@ onBeforeMount(async () => {
 const repository = new ApiRepository("jsonholder");
 // const api = repository;
 characters.value = await repository.getAll();
-console.log(characters.value);
 })
 </script>
 
